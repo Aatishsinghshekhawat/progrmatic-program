@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        async function getAstronauts() {
+    const apiURL = "http://api.open-notify.org/astros.json";
+
+    try {
+  
+        let response = await fetch(apiURL);
+
+        let data = await response.json();
+
+        let astronauts = data.people;
+        console.log(`There are ${data.number} people in space right now:\n`);
+
+        
+        console.log("Name                 | Craft");
+        console.log("---------------------|--------");
+
+        astronauts.forEach(person => {
+            console.log(`${person.name.padEnd(20)} | ${person.craft}`);
+        });
+
+    } catch (error) {
+        console.log("Error fetching astronaut data:", error);
+    }
+}
+
+getAstronauts();
+
+    </script>
+</body>
+</html>
+
