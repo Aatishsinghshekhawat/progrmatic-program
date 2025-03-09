@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input id="city-input" type="text" placeholder="Enter a city">
+        <button id="search-buttons">Search</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const button = document.getElementById("search-buttons");
+            const input = document.getElementById("city-input");
+
+            async function  getData(cityName) {
+               const promise = await fetch(`http://api.weatherapi.com/v1/current.json?key=8717d9abe85e4ae5b1b185312250803&q=${cityName}&aqi=yes`);
+               return await promise.json()
+               }
+
+            button.addEventListener("click", async () => {
+               const value = input.value;
+               const result = await getData(value);
+               console.log(result);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+What is the capital of France?|Paris|London|Berlin|Rome|1
+Which planet is known as the Red Planet?|Mars|Earth|Jupiter|Venus|1
+Who wrote 'Hamlet'?|Shakespeare|Dickens|Hemingway|Austen|1
+What is the square root of 64?|8|6|7|9|1

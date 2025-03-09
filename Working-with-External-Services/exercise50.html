@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Info</title>
+</head>
+<body>
+
+    <h1>Movie Information</h1>
+    <label>Enter the name of a movie:</label>
+    <input type="text" id="movieName" placeholder="e.g. Inception">
+    <button onclick="getMovie()">Search</button>
+
+    <div id="movieDetails"></div>
+
+    <script>
+        async function getMovie() {
+            const API_KEY = "9647bdb7"; 
+            const movieTitle = document.getElementById("movieName").value.trim();
+
+            if (movieTitle === "") {
+                alert("Please enter a movie name!");
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://www.omdbapi.com/?t=${movieTitle}&apikey=${API_KEY}`);
+                const data = await response.json();
+
+                if (data.Response === "True") {
+                    let imdbRating = parseFloat(data.imdbRating);
+                    let recommendation = "";
+
+                    if (imdbRating > 8.0) {
+                        recommendation = "<p><strong>You should watch this movie right now!</strong></p>";
+                    } else if (imdbRating < 5.0) {
+                        recommendation = "<p><strong>Avoid this movie at all costs!</strong></p>";
+                    }
+
+                    document.getElementById("movieDetails").innerHTML = `
+                        <h2>${data.Title}</h2>
+                        <p><strong>Year:</strong> ${data.Year}</p>
+                        <p><strong>Rating:</strong> ${data.Rated}</p>
+                        <p><strong>Running Time:</strong> ${data.Runtime}</p>
+                        <p><strong>Description:</strong> ${data.Plot}</p>
+                        <p><strong>IMDB Rating:</strong> ${data.imdbRating}</p>
+                        ${recommendation}
+                    `;
+                } else {
+                    document.getElementById("movieDetails").innerHTML = "<p>Movie not found.</p>";
+                }
+            } catch (error) {
+                document.getElementById("movieDetails").innerHTML = "<p>Error fetching movie data.</p>";
+            }
+        }
+    </script>
+
+</body>
+</html>
